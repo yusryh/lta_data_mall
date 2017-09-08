@@ -121,9 +121,15 @@ towards both Bedok and Toa Payoh interchanges. For route 155, use `.origin_code`
 and `.destination_code` to determine the plate colour. Other known services
 operating in such a manner are routes:
 
+* 21
 * 123
+* 124
+* 125
+* 129
 * 131
 * 136
+* 139
+* 186
 
 Generally, 'red' indicates direction 1 and 'white' indicates direction 2. LTA's
 API would return two `LtaDataMall::BusArrival::Service` entries; one for each direction.

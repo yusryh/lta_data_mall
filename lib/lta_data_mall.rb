@@ -102,11 +102,10 @@ module LtaDataMall
       def initialize(service_data)
         @origin_code = service_data['OriginCode']
         @destination_code = service_data['DestinationCode']
-        puts service_data['EstimatedArrival']
         begin
           @estimated_arrival = DateTime.parse(service_data['EstimatedArrival'])
         rescue
-          @estimated_arrival = ''
+          @estimated_arrival = nil
         end
         @latitude = service_data['Latitude']
         @longitude = service_data['Longitude']

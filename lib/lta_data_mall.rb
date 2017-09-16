@@ -3,11 +3,18 @@ require 'net/http'
 require 'json'
 require 'date'
 
+# An unofficial API Wrapper for LTA Data Mall
+#
+# Author::    Yusry Harfuddin
+# Copyright:: Copyright (c) 2016-2017 Yusry Harfuddin
+# License::   AGPL-3.0
+
 module LtaDataMall
   class Configuration
     attr_accessor :account_key
   end
 
+  # Get configuration block
   def self.configuration
     if @configuration.nil?
       @configuration = Configuration.new
@@ -19,7 +26,7 @@ module LtaDataMall
     end
   end
 
-  class HttpClient
+  class HttpClient #:nodoc:
     def self.call(url, headers)
     end
 
@@ -47,7 +54,7 @@ module LtaDataMall
     class Stop
       attr_reader :response_datetime, :stop_code, :services
 
-      def initialize(service_data_string, response_datetime)
+      def initialize(service_data_string, response_datetime) #:nodoc:
         @response_datetime = DateTime.parse(response_datetime)
         service_data = JSON.parse(service_data_string)
         @stop_code = service_data['BusStopCode']
@@ -69,7 +76,7 @@ module LtaDataMall
         'GAS'  => :gas
       }
 
-      def initialize(service_data)
+      def initialize(service_data) #:nodoc:
         @no = service_data['ServiceNo']
         @operator = OPERATOR_TYPES[service_data['Operator']]
 
@@ -99,7 +106,7 @@ module LtaDataMall
           'BD' => :articulated
         }
 
-      def initialize(service_data)
+      def initialize(service_data) #:nodoc:
         @origin_code = service_data['OriginCode']
         @destination_code = service_data['DestinationCode']
         begin
@@ -115,6 +122,7 @@ module LtaDataMall
         @vehicle = VEHICLE_TYPES[service_data['Type']]
       end
 
+      # Returns true if there are seats available
       def has_seats?
         @load == :seats_available
       end
@@ -124,6 +132,7 @@ module LtaDataMall
 
     def get_bus_arrival(bus_stop_code, bus_route = nil)
       parameters = { 'BusStopCode' => bus_stop_code.to_s }
+      parameters['ServiceNo'] = bus_route unless (bus_route.nil?|| bus_route == '') 
       response = ::LtaDataMall::HttpClient.json(ENDPOINT_URL, parameters)
 
       Stop.new(response.body, response.date)

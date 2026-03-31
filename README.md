@@ -2,7 +2,7 @@
 
 `lta_data_mall` is an unofficial client for accessing LTA Data Mall APIs.
 
-Currently, only the Bus Arrival API (Version 2) can be accessed via this gem.
+Currently, only the Bus Arrival API (Version 3) can be accessed via this gem.
 Other APIs will be progressively added.
 
 ## Links
@@ -86,12 +86,15 @@ particular trip.
   * `:standing_available` - Standing space is available
   * `:limited_standing` - There is limited standing space
 * `.is_wab?` - Indicates if the bus is a Wheel-Chair Accessible bus.
+* `.is_estimated?` - Indicates if the bus arrival time is estimated based on live position or based on schedule.
 * `.vehicle` - A symbol indicating the vehicle type.
   * `:single_deck` - A single-deck rigid bus. For example, a Scania K230UB or a Mercedes Benz Citaro, MAN A22, Volvo B10BLE (non-WAB), or Volvo B10M (non-WAB)
   * `:double_deck` - A double-deck rigid bus. For axample, a Volvo B9TL, Dennis Enviro 500, MAN A95, Volvo (Super) Olympian (non-WAB), or Dennis Trident III (non-WAB).
   * `:articulated` - A articulated (or bendy) single-deck bus. For example, a Mercedes Benz O405 (non-WAB), or MAN A24.
 
 ## Understanding Green/Red/White Plates and Visit Numbers
+
+**This section may be outdated. Will be reviewed and updated, if necessary, in a future review.**
 
 In case LTA's documentation is not clear enough, I am giving a few examples to
 allow you to understand this matter.
